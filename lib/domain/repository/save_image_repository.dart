@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:find_work/data/local_data_source.dart';
-import 'package:flutter/cupertino.dart';
 
 abstract class ImageRepository {
   Future<void> saveImage(File? image);
   String? readImage(String? image);
+  Future<bool> removeImage();
 }
 
 class ImageRepositoryImpl implements ImageRepository {
@@ -20,6 +19,11 @@ class ImageRepositoryImpl implements ImageRepository {
   @override
   String? readImage(String? image) {
     return dataSource.read(StorageKey.image);
+  }
+
+  @override
+  Future<bool> removeImage() {
+    return dataSource.remove(StorageKey.image);
   }
 
 }

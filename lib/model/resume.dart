@@ -1,56 +1,54 @@
+import 'dart:io';
+
 class ResumeModel {
-  final String id;
-  final String fullName;
-  final String age;
-  final String technological;
-  final String contact;
-  final String phoneNumber;
+  final int id;
+  final String title;
   final String area;
+  final String level;
+  final String job_type;
+  final String experience;
+  final String skills;
+  final File? image;
+  final String description;
   final String salary;
-  final String timeToApply;
-  final String addition;
-  final String purpose;
 
   ResumeModel({
-    required this.id,
-    required this.fullName,
-    required this.age,
-    required this.technological,
-    required this.contact,
-    required this.phoneNumber,
-    required this.area,
-    required this.salary,
-    required this.timeToApply,
-    required this.addition,
-    required this.purpose,
+    this. id = 1,
+    required this. title,
+    required this. area,
+    required this. level,
+    required this. job_type,
+    required this. experience,
+    required this. skills,
+    this.image,
+    required this. description,
+    required this. salary,
   });
 
   factory ResumeModel.fromJson(Map<String, Object?> json) => ResumeModel(
-        id: json["id"] as String,
-        fullName: json["fullName"] as String,
-        age: json["age"] as String,
-        technological: json["technological"] as String,
-        contact: json["contact"] as String,
-        phoneNumber: json["phoneNumber"] as String,
-        area: json["area"] as String,
-        salary: json["salary"] as String,
-        timeToApply: json["timeToApply"] as String,
-        addition: json["addition"] as String,
-        purpose: json["purpose"] as String,
+         id: json["id"] as int,
+         title: json["fullName"] as String,
+         area: json["age"] as String,
+         level: json["technological"] as String,
+         job_type: json["contact"] as String,
+         experience: json["phoneNumber"] as String,
+         skills: json["area"] as String,
+         image: json["salary"] as File?,
+         description: json["timeToApply"] as String,
+         salary: json["addition"] as String,
       );
 
   Map<String, Object?> toJson() => {
     "id" : id,
-    "fullName" : fullName,
-    "age" : age,
-    "technological" : technological,
-    "contact" : contact,
-    "phoneNumber" : phoneNumber,
-    "area" : area,
-    "salary" : salary,
-    "timeToApply" : timeToApply,
-    "addition" : addition,
-    "purpose" : purpose,
+    "title" :  id,
+    "area" :  title,
+    "level" :  area,
+    "job_type" :  level,
+    "experience" :  job_type,
+    "skills" :  experience,
+    "image" :  skills,
+    "description" : image,
+    "salary" :  description,
   };
 
 }

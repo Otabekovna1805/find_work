@@ -2,6 +2,7 @@ import 'package:find_work/constants/images.dart';
 import 'package:find_work/constants/strings.dart';
 import 'package:find_work/pages/sign_up.dart';
 import 'package:find_work/pages/vacancy_or_resume.dart';
+import 'package:find_work/pages/verification_page.dart';
 import 'package:find_work/views/container.dart';
 import 'package:find_work/views/textfield.dart';
 import 'package:flutter/gestures.dart';
@@ -30,7 +31,7 @@ class _SignInPageState extends State<SignInPage> {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
             children: [
-              Lottie.asset(Images.lottieSignIn),
+              SizedBox(child: Lottie.asset(Images.lottieSignIn)),
               CustomTextField(controller: emailController, title: Strings.email),
               SizedBox(
                 height: 20.h,
@@ -42,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VacancyOrResume()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VerificationPage()));
                 },
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: CustomContainer(
@@ -56,8 +57,7 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     const TextSpan(
                         text: Strings.dontHaveAnAccount,
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     TextSpan(
                       text: Strings.signUp,
@@ -66,7 +66,8 @@ class _SignInPageState extends State<SignInPage> {
                         ..onTap = () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpPage()));
+                                  builder: (context) => const SignUpPage()),
+                          );
                         },
                     ),
                   ],

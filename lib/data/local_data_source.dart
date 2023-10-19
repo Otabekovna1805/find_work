@@ -25,7 +25,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<bool> store(StorageKey key, String data) async {
-    return db.setString(key.name, data);
+    return await db.setString(key.name, data);
   }
 }
 

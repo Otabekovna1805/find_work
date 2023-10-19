@@ -42,7 +42,7 @@ class _VacancyPageState extends State<VacancyPage> {
                   children: [
                     CustomTextField(title: Strings.companyName, controller: companyController),
                     const SizedBox(height: 10,),
-                    CustomTextField(title: Strings.useTechnology, controller: technologicalController),
+                    CustomTextField(title: Strings.skills, controller: technologicalController),
                     const SizedBox(height: 10,),
                     CustomTextField(title: Strings.forContact, controller: contactController),
                     const SizedBox(height: 10,),

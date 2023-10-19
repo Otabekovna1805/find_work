@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:find_work/cubit/theme_cubit.dart';
 import 'package:find_work/data/local_data_source.dart';
-import 'package:find_work/domain/repository/save_image_repository.dart';
 import 'package:find_work/pages/vacancy_or_resume.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../core/service_locator.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,12 +46,14 @@ class _HomePageState extends State<HomePage> {
     try {
       final result = await picker.pickImage(source: source);
       image = File(result!.path);
-      imageRepository.saveImage(image);
+      await imageRepository.saveImage(image);
       setState(() {});
     } on PlatformException {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Invalid image format")));
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("This device doesn't support camera")));
     }
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       width: 80.sp,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(150.sp),
-                        child: (image == null
+                        child: (imageRepository.readImage(StorageKey.image.name) == null
                             ? Transform.scale(
                                 scale: 1.3.sp,
                                 child: Image.asset(
@@ -127,9 +127,10 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               )
                             : Image.file(
-                                imageRepository.readImage(image!.path) as File,
+                                File(imageRepository.readImage(StorageKey.image.name) ?? ""),
                                 fit: BoxFit.cover,
-                              )),
+                              )
+                        ),
                       ),
                     ),
                     Align(

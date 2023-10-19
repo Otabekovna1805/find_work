@@ -1,5 +1,6 @@
 import 'package:find_work/constants/images.dart';
 import 'package:find_work/constants/strings.dart';
+import 'package:find_work/core/service_locator.dart';
 import 'package:find_work/pages/sign_in.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: CustomContainer(
-                      width: 320.w, text: Strings.signUp, height: 57.h),
+                      width: 320.w, text: Strings.signIn, height: 57.h),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -64,11 +65,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 RichText(
                   text: TextSpan(
                     children: [
-                      const TextSpan(
+                       TextSpan(
                           text: Strings.haveYouAccount,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500)),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600
+                          ),
+                       ),
                       TextSpan(
                         text: Strings.signUp,
                         style: const TextStyle(color: Colors.lightBlueAccent),
@@ -90,3 +93,5 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+

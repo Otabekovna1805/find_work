@@ -14,25 +14,14 @@ class ResumePage extends StatefulWidget {
 }
 
 class _ResumePageState extends State<ResumePage> {
-  final fullNameController = TextEditingController();
-
-  final ageController = TextEditingController();
-
-  final technologicalController = TextEditingController();
-
-  final contactController = TextEditingController();
-
-  final phoneNumberController = TextEditingController();
-
-  final areaController = TextEditingController();
-
-  final salaryController = TextEditingController();
-
-  final timeToApplyController = TextEditingController();
-
-  final additionController = TextEditingController();
-
-  final purposeController = TextEditingController();
+  final  titleController = TextEditingController();
+  final  areaController = TextEditingController();
+  final  levelController = TextEditingController();
+  final  jobTypeController = TextEditingController();
+  final  experienceController = TextEditingController();
+  final  skillsController = TextEditingController();
+  final  descriptionController = TextEditingController();
+  final  salaryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,25 +38,21 @@ class _ResumePageState extends State<ResumePage> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.sp),
                 child: Column(
                   children: [
-                    CustomTextField(title: Strings.fullName, controller: fullNameController),
+                    CustomTextField(title: Strings.title, controller: titleController),
                     SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.yearsOld, controller: ageController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.useTechnology, controller: technologicalController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.forContact, controller: contactController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.phoneNumber, controller: phoneNumberController),
+                    CustomTextField(title: Strings.desc, controller: descriptionController),
                     SizedBox(height: 10.sp),
                     CustomTextField(title: Strings.area, controller: areaController),
                     SizedBox(height: 10.sp),
+                    CustomTextField(title: Strings.forContact, controller: levelController),
+                    SizedBox(height: 10.sp),
+                    CustomTextField(title: Strings.jobType, controller: jobTypeController),
+                    SizedBox(height: 10.sp),
+                    CustomTextField(title: Strings.area, controller: experienceController),
+                    SizedBox(height: 10.sp),
+                    CustomTextField(title: Strings.skills, controller: skillsController),
+                    SizedBox(height: 10.sp),
                     CustomTextField(title: Strings.salary, controller: salaryController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.timeToApply, controller: timeToApplyController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.addition, controller: additionController),
-                    SizedBox(height: 10.sp),
-                    CustomTextField(title: Strings.purpose, controller: purposeController),
 
                     SizedBox(height: 20.sp,),
                     InkWell(
@@ -75,7 +60,7 @@ class _ResumePageState extends State<ResumePage> {
                         Navigator.push(context, MaterialPageRoute(builder: (_) => const HomePage()));
                       },
                       borderRadius: BorderRadius.circular(15),
-                      child: CustomContainer(width: 340.w, text: Strings.publishResume, height: 55.sp, color: Colors.black,)
+                      child: CustomContainer(width: 340.w, text: Strings.publishResume, height: 55.sp,)
                     ),
                   ],
                 ),

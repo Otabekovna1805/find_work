@@ -7,7 +7,7 @@ sealed class Strings {
   /// #resume
   static const fullName = "Enter your full name: ";
   static const yearsOld = "Enter your age:";
-  static const useTechnology = "What technologies do you use:";
+  static const skills = "Enter your skills:";
   static const forContact = "For contact:";
   static const phoneNumber =  "Your phone number:";
   static const area = "Enter your region:";
@@ -15,6 +15,11 @@ sealed class Strings {
   static const timeToApply = "Apply time:";
   static const addition = "Additional:";
   static const purpose = "Your goal is to:";
+  static const title = "Enter your title:";
+  static const desc = "Enter your title:";
+  static const level = "Enter your level:";
+  static const jobType = "Enter your job type:";
+  static const experience = "Enter your job experience:";
   static const publishResume = "Publish resume";
 
   /// #vacancy
