@@ -1,4 +1,5 @@
 import 'package:find_work/domain/repository/save_image_repository.dart';
+import 'package:find_work/domain/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../data/local_data_source.dart';

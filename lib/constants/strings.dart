@@ -34,7 +34,8 @@ sealed class Strings {
 
 
   /// #sign up
-  static const userName = "Username";
+  static const lastName = "Last name";
+  static const firstName = "Last name";
   static const email = "Email";
   static const password = "Password";
   static const confirmPassword = "Confirm Password";

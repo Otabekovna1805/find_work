@@ -1,54 +1,73 @@
 import 'dart:io';
 
+import 'package:find_work/model/user_model.dart';
+
 class ResumeModel {
-  final int id;
+  final int? id;
   final String title;
   final String area;
-  final String level;
-  final String job_type;
-  final String experience;
-  final String skills;
-  final File? image;
-  final String description;
-  final String salary;
+  final String birthDate;
+  final Gender gender;
+  final User user;
 
   ResumeModel({
-    this. id = 1,
-    required this. title,
-    required this. area,
-    required this. level,
-    required this. job_type,
-    required this. experience,
-    required this. skills,
-    this.image,
-    required this. description,
-    required this. salary,
+    this.id = 1,
+    required this.title,
+    required this.area,
+    required this.user,
+    required this.gender,
+    required this.birthDate
   });
 
-  factory ResumeModel.fromJson(Map<String, Object?> json) => ResumeModel(
-         id: json["id"] as int,
-         title: json["fullName"] as String,
-         area: json["age"] as String,
-         level: json["technological"] as String,
-         job_type: json["contact"] as String,
-         experience: json["phoneNumber"] as String,
-         skills: json["area"] as String,
-         image: json["salary"] as File?,
-         description: json["timeToApply"] as String,
-         salary: json["addition"] as String,
+  factory ResumeModel.fromJson(Map<String, Object?> json) =>
+      ResumeModel(
+        id: json["id"] as int?,
+        title: json["title"] as String,
+        area: json["region"] as String,
+        user: User.fromJson(json["user"] as Map<String, Object?>),
+        gender: json["gender"] as Gender,
+        birthDate: json["birth_date"] as String
       );
 
-  Map<String, Object?> toJson() => {
-    "id" : id,
-    "title" :  id,
-    "area" :  title,
-    "level" :  area,
-    "job_type" :  level,
-    "experience" :  job_type,
-    "skills" :  experience,
-    "image" :  skills,
-    "description" : image,
-    "salary" :  description,
-  };
-
+  Map<String, Object?> toJson() =>
+      {
+        "id": id,
+        "title": title,
+        "region": area,
+        "user": user,
+        "birth_date": birthDate,
+      };
 }
+
+// class Experience {
+//   final String company;
+//   final int startYear;
+//   final int endYear;
+//   final WorkType workType;
+//   final Location location;
+//   final String description;
+//   final int employee;
+//
+//   Experience({
+//
+// });
+// }
+
+enum Location {
+  remote,
+  onSite,
+  hybrid
+}
+
+enum WorkType {
+  partTime,
+  fullTime,
+  hybrid
+}
+
+enum Gender {
+  male,
+  female
+}
+
+

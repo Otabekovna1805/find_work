@@ -1,12 +1,14 @@
+
+
 import 'package:find_work/constants/images.dart';
 import 'package:find_work/constants/strings.dart';
 import 'package:find_work/core/service_locator.dart';
 import 'package:find_work/pages/sign_in.dart';
+import 'package:find_work/service/registration_network_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-
 import '../views/container.dart';
 import '../views/textfield.dart';
 
@@ -21,8 +23,30 @@ class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
-  final usernameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final firstnameController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  bool _visible = true;
 
+  Future<void> createUser() async {
+    final Map<String,Object?> data ={
+      "email" : emailController.text.trim().toString(),
+      "password" : passwordController.text.trim().toString(),
+      "first_name" : firstnameController.text.trim().toString(),
+      "last_name" : lastnameController.text.trim().toString(),
+      "phone_number" : phoneNumberController.text.trim().toString(),
+    };
+   final response = await RegistrationNetworkService.signUpPost(api: RegistrationNetworkService.apiUserSignUp, data: data);
+    if(response) {
+      if(passwordController.text.trim().toString() == confirmController.text.trim().toString()) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please correct password!")));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something error!")));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -34,30 +58,77 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: [
                 Container(child: Lottie.asset(Images.signUp)),
-                CustomTextField(controller: emailController, title: Strings.userName),
+                CustomTextField(controller: firstnameController, title: Strings.firstName),
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomTextField(controller: passwordController, title: Strings.email),
+                CustomTextField(controller: lastnameController, title: Strings.firstName),
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomTextField(controller: emailController, title: Strings.password),
+                CustomTextField(controller: emailController, title: Strings.email),
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomTextField(
-                    controller: passwordController, title: Strings.confirmPassword),
+                TextField(
+                  obscureText: _visible,
+                  controller: passwordController,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 17.sp, bottom: 17.sp, left: 12.sp, right: 20.sp),
+                    suffix: GestureDetector(onTap: () => setState(() => _visible = !_visible), child: Icon(_visible ? Icons.visibility_off : Icons.visibility)),
+                    hintText: Strings.password,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 3),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextField(
+                  obscureText: _visible,
+                  controller: confirmController,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 17.sp, bottom: 17.sp, left: 12.sp, right: 20.sp),
+                    suffix: GestureDetector(onTap: () => setState(() => _visible = !_visible), child: Icon(_visible ? Icons.visibility_off : Icons.visibility)),
+                    hintText: Strings.confirmPassword,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 3),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                CustomTextField(controller: phoneNumberController, title: Strings.phoneNumber),
                 SizedBox(
                   height: 20.h,
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignInPage()));
-                  },
+                  onTap: () => createUser(),
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: CustomContainer(
-                      width: 320.w, text: Strings.signIn, height: 57.h),
+                      width: 320.w, text: Strings.signUp, height: 57.h),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -68,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                        TextSpan(
                           text: Strings.haveYouAccount,
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Colors.black,
+                            color: mode == ThemeMode.light ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w600
                           ),
                        ),
@@ -91,6 +162,20 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmController.dispose();
+    lastnameController.dispose();
+    firstnameController.dispose();
+    phoneNumberController.dispose();    
+    
+    super.dispose();
   }
 }
 
